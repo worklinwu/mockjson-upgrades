@@ -8,30 +8,31 @@ mockjson-upgrades
 所以改造的工作开始了。我做了两个版本，一个是增强版，一个是node版。具体如下：
 1. 在ajax下添加`mock`参数的支持。
 ```javascript
-    $.ajax({
-        url: "foo.php",
-        type: "get",
-        dataType: "json",
-    
-        mock: {
-            delay: 1000,
-            data: {
-                "test|5-10": "@NUMBER"
-            }
-        },
-    
-        success: function (data) {
-            console.log(data.test);
-        },
-        complete: function () {
-            console.log("ajax complete!");
+$.ajax({
+    url: "foo.php",
+    type: "get",
+    dataType: "json",
+
+    mock: {
+        delay: 1000,
+        data: {
+            "test|5-10": "@NUMBER"
         }
-    });
+    },
+
+    success: function (data) {
+        console.log(data.test);
+    },
+    complete: function () {
+        console.log("ajax complete!");
+    }
+});
 ```
 2. 增加了延迟请求的功能，用来模拟网络延时。
 3. 使其请求后会触发`beforeSend`和`complete`方法，只是没有参数。
 4. 做了个node版本的。
-    这个可以在自己的团队服务器上挂一个这样的服务，然后直接把你想要的数据作为参数传过去，然后返回一个解析后的数据个你。而且剩了带入js文件。不过也有限制，ajax格式必须是jsonp的。
+    这个可以在自己的团队服务器上挂一个这样的服务，然后直接把你想要的数据作为参数传过去，然后返回一个解析后的数据个你。而且剩了带入js文件。不过也有限制，ajax格式必须是jsonp的。 
+    
     ```
     $.ajax({
         url: 'http://127.0.0.1:5405/?delay=500&data=' + JSON.stringify({
@@ -47,7 +48,7 @@ mockjson-upgrades
     ```
        
 博客相关
-<a href="http://www.linwu.name/articles/share-mockJSON-upgrades.html" target="_blank">本地模拟JSON数据，mockjson-upgrades.js</a>     
+<a href="http://www.linwu.name/articles/share-mockJSON-upgrades.html" target="_blank">《本地模拟JSON数据，mockjson-upgrades.js》</a>     
     
 源码在这里   
 <a href="#" target="_blank">jquery.mockjson-upgrades.js</a>   
