@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>mockJson-node</title>
+    <link rel="stylesheet" href="../assets/style/common.css"/>
+</head>
+<body>
+<pre class="haskell"><code>// 查看控制台输出的信息
+$.ajax({
+     url:<span class="string"> 'http://127.0.0.1:5405/?delay=500&amp;data='</span> + <span class="type">JSON</span>.stringify({
+         <span class="string">"result|10-20"</span>: <span class="string">"@NUMBER"</span>,
+         <span class="string">"json|1-2"</span>:{<span class="string">"json1|5-10"</span>:<span class="string">"@NUMBER"</span>,<span class="string">"json2|5-10"</span>:<span class="string">"@NUMBER"</span>}
+     }),
+     <span class="typedef"><span class="keyword">type</span>: "get",</span>
+     <span class="typedef">dataType: "jsonp",</span>
+     success: function (<span class="typedef"><span class="keyword">data</span>) <span class="container">{
+         <span class="title">console</span>.<span class="title">log</span>(<span class="title">data</span>);
+     }</span></span>
+ });
+</code></pre>
+
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var begintime;
+        var endtime;
+
+        // 新功能测试
+        $.ajax({
+            url: 'http://127.0.0.1:5405/?delay=500&data=' + JSON.stringify({
+                "result|10-20": "@NUMBER",
+                "json|1-2":{"json1|5-10":"@NUMBER","json2|5-10":"@NUMBER"}
+            }),
+            type: "get",
+            dataType: "jsonp",
+            beforeSend: function () {
+                begintime = new Date().getTime();
+                console.log("-- ajax beforeSend!");
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            complete: function () {
+                endtime = new Date().getTime() - begintime;
+                console.log("-- ajax complete! time:" + endtime);
+            },
+            error:function (e) {
+                console.log(e);
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+

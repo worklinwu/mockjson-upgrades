@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>mockJson-upgrades</title>
+    <link rel="stylesheet" href="../assets/style/common.css"/>
+</head>
+<body>
+<pre class="haskell"><code class="prettyprintjavascript">// 查看控制台输出的信息
+$.ajax({
+     url: <span class="string">"foo.php"</span>,
+     <span class="typedef"><span class="keyword">type</span>: "get",</span>
+     <span class="typedef">dataType: "json",</span>
+
+     mock: {
+         delay: <span class="number">1000</span>,
+         <span class="typedef"><span class="keyword">data</span>: <span class="container">{
+             "<span class="title">test</span>|5-10": "@<span class="type">NUMBER</span>"
+         }</span></span>
+     },
+
+     success: function (<span class="typedef"><span class="keyword">data</span>) <span class="container">{
+         <span class="title">console</span>.<span class="title">log</span>(<span class="title">data</span>.<span class="title">test</span>);
+     }</span>,</span>
+     complete: function () {
+         console.log(<span class="string">"ajax complete!"</span>);
+     }
+ });
+</code></pre>
+
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/jquery.mockjson-upgrades.js"></script>
+    <script type="text/javascript">
+        var begintime;
+        var endtime;
+
+        // 新功能测试
+        $.ajax({
+            url: "test.json",
+            data: "key=value&key2=value2",
+            type: "get",
+            dataType: "json",
+
+            mock: {
+                delay: 1000,
+                data: {
+                    "test|5-10": "@NUMBER"
+                }
+            },
+
+            beforeSend: function () {
+                begintime = new Date().getTime();
+                console.log("-- ajax beforeSend!");
+            },
+            success: function (data) {
+                console.log(data.test);
+            },
+            complete: function () {
+                endtime = new Date().getTime() - begintime;
+                console.log("-- ajax complete! time:" + endtime);
+            }
+        });
+
+        // 原有功能测试
+        $.mockJSON(/foo\.json/, {
+            "test|5-10": "@LETTER_LOWER"
+        });
+
+        $.get("foo.json",function (data) {
+            console.log("!! get foo.json"+data.test);
+        });
+    </script>
+</body>
+</html>
+
+
