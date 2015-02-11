@@ -33,7 +33,7 @@ $.ajax({
 4. 做了个node版本的。
     这个可以在自己的团队服务器上挂一个这样的服务，然后直接把你想要的数据作为参数传过去，然后返回一个解析后的数据个你。而且剩了带入js文件。不过也有限制，ajax格式必须是jsonp的。 
     
-    ```
+    ```javascript
     $.ajax({
         url: 'http://127.0.0.1:5405/?delay=500&data=' + JSON.stringify({
             "result|10-20": "@NUMBER",
