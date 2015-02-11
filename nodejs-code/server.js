@@ -24,7 +24,7 @@ http.createServer(function (req, res) {
 
     if (params.query) {
         param_tpl = params.query.tpl ? params.query.tpl : null;
-        param_delay = params.query.delay && typeof params.query.delay == "number" ? parseInt(params.query.delay) : 0;
+        param_delay = params.query.delay ? parseInt(params.query.delay) : 0;
         param_data = params.query.data;
         param_callback = params.query.callback;
 
